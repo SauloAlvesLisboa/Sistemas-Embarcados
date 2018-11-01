@@ -1,3 +1,5 @@
+os códigos se encontran no final desta página!
+
 1. Crie um código em C para escrever "Ola mundo!" em um arquivo chamado 'ola_mundo.txt'
 #include <stdio.h>
 #include <stdlib.h>
@@ -65,3 +67,151 @@ Repare que o conteúdo do arquivo é armazenado no vetor 'conteudo[]'. Ou seja, 
 	$ ./busca_e_conta Ola ola.txt
 	$ 'Ola' ocorre 2 vezes no arquivo 'ola.txt'.
 $
+
+Códigos 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "bib_arqs.h"
+
+int tam_arq_texto(char *nome_arquivo)
+{
+
+FILE *fp;
+int i=0;
+fp = fopen(nome_arquivo, "r");
+char ch;
+int tamanho=0;
+
+if(!fp)
+{
+  //Arquivo ASCII, para escrita
+  printf("Erro na leitura do arquivo");
+  exit(0);
+}
+
+while (1)
+{
+  ch = fgetc(fp);
+  if(ch == EOF)
+    break;
+  tamanho++;
+}
+fclose(fp);
+
+return tamanho;
+
+}
+
+void le_arq_texto (char *nome_arquivo, char *conteudo)
+{
+
+FILE *fp;
+int i=0;
+fp = fopen(nome_arquivo, "r");
+char ch;
+int tamanho=0;
+
+if(!fp)
+{
+  //Arquivo ASCII, para escrita
+  printf("Erro na leitura do arquivo");
+  exit(0);
+}
+
+while (1)
+{
+  ch = fgetc(fp);
+  if(ch == EOF)
+    break;
+  
+  conteudo[tamanho] = ch;
+  tamanho++;
+}
+fclose(fp);
+
+}
+
+////
+
+int tam_arq_texto(char *nome_arquivo);
+void le_arq_texto(char *nome_arquivo, char *conteudo);
+
+//////
+
+#include <stdio.h>
+#include <stdlib.h> 
+#include "bib_arqs.h"
+
+int main(int argc , char *argv[])
+{
+char string[200]="";
+
+le_arq_texto(argv[1],string);
+
+printf("%s",string);
+
+
+return 0;
+}
+
+///////
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+FILE *fp;
+char string[100] = "Ola mundo!";
+int i=0;
+fp = fopen("ola_mundo.txt", "w");
+
+if(!fp)
+{
+  //Arquivo ASCII, para escrita
+  printf("Erro na leitura do arquivo");
+  exit(0);
+}
+
+for(i=0; string[i]; i++)
+  putc(string[i],fp);
+fclose(fp);
+return 0;
+}
+//////////
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc , char *argv[])
+{
+FILE *fp;
+char frase[200] = "Nome: ";
+char idade_frase[200] = "Idade: ";
+int i=0;
+fp = fopen("Eu.txt", "w");
+
+if(!fp)
+{
+  //Arquivo ASCII, para escrita
+  printf("Erro na leitura do arquivo");
+  exit(0);
+}
+
+
+strcat(frase,argv[1]);
+
+strcat(idade_frase, argv[2]);
+for(i=0; frase[i]; i++)
+  putc(frase[i],fp);
+putc('\n',fp);
+for(i=0; idade_frase[i]; i++)
+  putc( idade_frase[i],fp);
+fclose(fp);
+return 0;
+}
+
+
+
+
